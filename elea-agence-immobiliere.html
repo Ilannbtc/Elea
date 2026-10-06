@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ÉLÉA — Agence Immobilière</title>
+<meta name="description" content="ÉLÉA — Une nouvelle façon de trouver le lieu qui vous ressemble.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --violet:#6161ff; --ink:#333; --slate:#535768; --cloud:#f5f6f8; --white:#fff;
+  --mist:#d0d4e4; --mint:#bcfe90; --sky:#abf0ff; --lav:#eddff7;
+  --peach:#ffd8b8; --pink:#fe81e4; --orange:#fda900;
+  --shadow:rgba(205,208,223,.48) 0 12px 48px;
+  --max:1200px; --radius:28px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Poppins,system-ui,sans-serif;color:var(--ink);background:var(--cloud);overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+button{font:inherit;border:0;cursor:pointer}
+.container{width:min(var(--max),calc(100% - 40px));margin:auto}
+header{position:fixed;top:16px;left:50%;transform:translateX(-50%);width:min(1160px,calc(100% - 32px));z-index:1000;background:rgba(255,255,255,.84);backdrop-filter:blur(18px);border:1px solid rgba(208,212,228,.7);border-radius:22px;box-shadow:0 8px 35px rgba(80,80,130,.08)}
+.nav{height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 12px 0 22px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.04em;font-size:20px}
+.logo-mark{width:34px;height:34px;border-radius:12px;background:conic-gradient(from 220deg,#8181ff,#33dbdb,#33d58e,#ffd633,#fc527d,#8181ff);position:relative;animation:spin 10s linear infinite}
+.logo-mark:after{content:"";position:absolute;inset:8px;background:white;border-radius:8px}
+.navlinks{display:flex;gap:28px;color:var(--slate);font-size:14px;font-weight:500}
+.navlinks a{transition:.25s}.navlinks a:hover{color:var(--violet);transform:translateY(-2px)}
+.actions{display:flex;gap:9px}
+.pill{border-radius:999px;padding:12px 20px;transition:.3s;position:relative;overflow:hidden}
+.pill:after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 20%,rgba(255,255,255,.35),transparent 70%);transform:translateX(-130%);transition:.55s}
+.pill:hover:after{transform:translateX(130%)}
+.outline{background:#fff;border:1px solid var(--mist);color:var(--ink)}
+.primary{background:var(--violet);color:#fff;box-shadow:0 10px 25px rgba(97,97,255,.24)}
+.primary:hover{transform:translateY(-3px);box-shadow:0 16px 32px rgba(97,97,255,.3)}
+
+.hero{min-height:100vh;background:#fff;display:flex;align-items:center;padding:145px 0 80px;position:relative;isolation:isolate}
+.blob{position:absolute;border-radius:50%;filter:blur(1px);z-index:-1;opacity:.7}
+.blob.one{width:420px;height:420px;background:var(--lav);right:-140px;top:100px;animation:float 7s ease-in-out infinite}
+.blob.two{width:300px;height:300px;background:var(--sky);left:-150px;bottom:-80px;animation:float 9s ease-in-out infinite reverse}
+.hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:65px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;background:#ececff;color:var(--violet);padding:8px 13px;border-radius:999px;font-size:12px;font-weight:600;margin-bottom:24px}
+.dot{width:7px;height:7px;border-radius:50%;background:#7f7fff;box-shadow:0 0 0 6px rgba(97,97,255,.1)}
+h1{font-size:clamp(48px,6.2vw,78px);line-height:1.04;letter-spacing:-.065em;font-weight:300;max-width:720px}
+.gradient{background:linear-gradient(90deg,var(--pink),var(--orange));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-copy{font-size:17px;line-height:1.75;color:var(--slate);max-width:600px;margin:26px 0 30px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.hero-note{display:flex;align-items:center;gap:12px;margin-top:28px;color:#777;font-size:12px}
+.avatars{display:flex}.avatar{width:30px;height:30px;border-radius:50%;border:2px solid #fff;margin-left:-7px;background:linear-gradient(135deg,#c9d2ff,#ffbfdc)}.avatar:first-child{margin-left:0}
+
+.property-stage{position:relative;min-height:530px;perspective:1200px}
+.property-card{position:absolute;inset:20px 0 20px 25px;background:#fff;border:1px solid var(--mist);border-radius:34px;padding:12px;box-shadow:var(--shadow);transform:rotate(2.5deg);transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.property-card:hover{transform:rotate(0) translateY(-10px) scale(1.015)}
+.property-image{height:355px;border-radius:25px;overflow:hidden;position:relative;background:linear-gradient(135deg,#d9ddff,#9e8fff)}
+.property-image img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s}
+.property-card:hover .property-image img{transform:scale(1.06)}
+.price{position:absolute;left:18px;bottom:18px;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);padding:10px 14px;border-radius:15px;font-size:13px;font-weight:700}
+.like{position:absolute;right:18px;top:18px;width:42px;height:42px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:18px;box-shadow:0 5px 20px rgba(0,0,0,.12);transition:.3s}
+.like:hover{transform:scale(1.15) rotate(8deg)}
+.property-info{padding:18px 10px 8px;display:flex;justify-content:space-between;gap:20px;align-items:end}
+.property-info h3{font-size:20px;letter-spacing:-.03em}.property-info p{font-size:12px;color:#777;margin-top:5px}
+.property-meta{display:flex;gap:8px}.meta{padding:8px 10px;background:#f3f4f8;border-radius:11px;font-size:11px;color:var(--slate)}
+.floating-tag{position:absolute;z-index:2;padding:15px 18px;border-radius:18px;box-shadow:var(--shadow);font-size:12px;font-weight:600;animation:float 5s ease-in-out infinite}
+.tag1{background:var(--mint);right:-20px;top:55px}.tag2{background:var(--peach);left:-35px;bottom:80px;animation-delay:-2s}
+.cursor-orb{position:absolute;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(97,97,255,.18),transparent 65%);pointer-events:none;transform:translate(-50%,-50%);z-index:0;transition:opacity .2s}
+
+.trust{background:#fff;padding:28px 0 70px;text-align:center}
+.trust p{font-size:12px;color:#888;margin-bottom:22px}
+.trust-row{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;color:#777;font-weight:600;opacity:.6;font-size:16px}
+
+section{padding:110px 0}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:45px}
+.kicker{color:var(--violet);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.15em;margin-bottom:12px}
+h2{font-size:clamp(36px,4.5vw,58px);font-weight:300;letter-spacing:-.055em;line-height:1.08}
+.section-head p{color:var(--slate);max-width:430px;line-height:1.7;font-size:14px}
+
+.listings{background:var(--cloud)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:#fff;border:1px solid var(--mist);border-radius:var(--radius);padding:12px;box-shadow:0 2px 30px rgba(205,208,223,.28);transition:transform .5s,box-shadow .5s}
+.card:hover{transform:translateY(-12px) rotate(-.6deg);box-shadow:0 18px 48px rgba(105,105,150,.17)}
+.card-img{height:285px;border-radius:21px;overflow:hidden;position:relative}
+.card-img img{width:100%;height:100%;object-fit:cover;transition:transform .7s}
+.card:hover .card-img img{transform:scale(1.09)}
+.badge{position:absolute;left:13px;top:13px;background:#fff;border-radius:999px;padding:7px 10px;font-size:10px;font-weight:700}
+.card-content{padding:18px 8px 8px}
+.card-content h3{font-size:19px;letter-spacing:-.03em}.location{font-size:12px;color:#81818b;margin:5px 0 16px}
+.card-bottom{display:flex;justify-content:space-between;align-items:center}.card-price{font-weight:700}.card-link{font-size:12px;color:var(--violet);font-weight:600}
+
+.story{background:#fff}
+.story-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:80px;align-items:center}
+.story-visual{min-height:530px;position:relative}
+.photo-main{position:absolute;width:75%;height:480px;left:0;top:25px;border-radius:34px;overflow:hidden;box-shadow:var(--shadow);transform:rotate(-3deg);transition:.6s}
+.photo-main:hover{transform:rotate(0) scale(1.02)}
+.photo-main img{width:100%;height:100%;object-fit:cover}
+.mini-card{position:absolute;right:0;bottom:0;width:230px;padding:20px;background:var(--mint);border-radius:24px;box-shadow:var(--shadow);transform:rotate(4deg);transition:.4s}
+.mini-card:hover{transform:rotate(0) translateY(-8px)}
+.mini-card strong{display:block;font-size:30px;letter-spacing:-.05em}.mini-card span{font-size:12px;color:#435044}
+.story-copy p{color:var(--slate);line-height:1.8;margin:25px 0}.checks{display:grid;gap:13px}.check{display:flex;gap:11px;align-items:center;font-size:13px}.check i{width:23px;height:23px;border-radius:50%;display:grid;place-items:center;background:#ececff;color:var(--violet);font-style:normal}
+
+.services{background:#f9f9fb}
+.service-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.service{min-height:240px;border-radius:26px;padding:25px;display:flex;flex-direction:column;justify-content:space-between;transition:.45s;position:relative;overflow:hidden}
+.service:before{content:"";position:absolute;width:150px;height:150px;border-radius:50%;right:-60px;bottom:-60px;background:rgba(255,255,255,.3);transition:.5s}
+.service:hover{transform:translateY(-9px) scale(1.02)}.service:hover:before{transform:scale(1.7)}
+.service:nth-child(1){background:var(--mint)}.service:nth-child(2){background:var(--sky)}.service:nth-child(3){background:var(--lav)}.service:nth-child(4){background:#ffe7d5}
+.icon{font-size:26px}.service h3{font-size:18px}.service p{font-size:12px;line-height:1.6;color:#575b65;margin-top:8px}
+
+.process{background:var(--violet);color:#fff;position:relative;overflow:hidden}
+.process:before{content:"";position:absolute;width:600px;height:600px;border:1px solid rgba(255,255,255,.16);border-radius:50%;right:-250px;top:-200px}
+.process .kicker{color:#c9c9ff}.process .section-head p{color:#d9d9ff}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;position:relative}
+.step{border:1px solid rgba(255,255,255,.2);border-radius:24px;padding:25px;min-height:220px;background:rgba(255,255,255,.07);backdrop-filter:blur(8px);transition:.4s}
+.step:hover{background:rgba(255,255,255,.14);transform:translateY(-8px)}
+.step-num{font-size:12px;color:#c9c9ff}.step h3{margin:65px 0 10px;font-size:20px}.step p{font-size:12px;line-height:1.7;color:#dedfff}
+
+.cta{padding:120px 0;background:#fff;text-align:center}
+.cta-box{background:linear-gradient(135deg,#eeeeff,#fff);border:1px solid var(--mist);border-radius:38px;padding:75px 30px;position:relative;overflow:hidden}
+.cta-box:before,.cta-box:after{content:"";position:absolute;border-radius:50%;filter:blur(3px);opacity:.55}.cta-box:before{width:250px;height:250px;background:var(--sky);left:-100px;bottom:-140px}.cta-box:after{width:280px;height:280px;background:#fbd0f5;right:-100px;top:-140px}
+.cta-box>*{position:relative;z-index:1}.cta-box p{color:var(--slate);max-width:540px;margin:20px auto 28px;font-size:14px;line-height:1.7}
+
+footer{background:#fff;border-top:1px solid #e5e6ed;padding:35px 0}.footer{display:flex;justify-content:space-between;gap:20px;align-items:center}.footer p,.footer a{font-size:12px;color:#858793}.footer-links{display:flex;gap:22px}
+
+.reveal{opacity:0;transform:translateY(35px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}.reveal.visible{opacity:1;transform:none}
+.delay1{transition-delay:.08s}.delay2{transition-delay:.16s}.delay3{transition-delay:.24s}
+
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes heroIn{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:none}}
+.hero .eyebrow,.hero h1,.hero .hero-copy,.hero .hero-actions,.hero .hero-note{animation:heroIn .8s both}.hero h1{animation-delay:.08s}.hero-copy{animation-delay:.16s}.hero-actions{animation-delay:.24s}.hero-note{animation-delay:.32s}
+@media(max-width:900px){
+  .navlinks{display:none}.hero-grid,.story-grid{grid-template-columns:1fr}.property-stage{min-height:540px}.cards{grid-template-columns:1fr 1fr}.service-grid{grid-template-columns:1fr 1fr}.steps{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  header{top:8px}.nav{height:62px}.actions .outline{display:none}.container{width:min(100% - 28px,var(--max))}
+  .hero{padding-top:115px}.hero-grid{gap:30px}.property-stage{min-height:450px}.property-card{inset:10px 0 10px 8px}.property-image{height:285px}.tag1{right:-5px}.tag2{left:-5px;bottom:50px}
+  .cards,.service-grid,.steps{grid-template-columns:1fr}.section-head{display:block}.section-head p{margin-top:18px}.story-visual{min-height:430px}.photo-main{height:390px;width:82%}.mini-card{width:190px}
+  .trust-row{justify-content:center}.footer{display:block}.footer-links{margin-top:14px;flex-wrap:wrap}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <a class="logo" href="#top"><span class="logo-mark"></span>ÉLÉA</a>
+    <div class="navlinks">
+      <a href="#biens">Biens</a><a href="#agence">L'agence</a><a href="#services">Services</a><a href="#process">Notre méthode</a>
+    </div>
+    <div class="actions"><a class="pill outline" href="#contact">Parler à un expert</a><a class="pill primary" href="#biens">Voir les biens ↗</a></div>
+  </nav>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="blob one"></div><div class="blob two"></div><div class="cursor-orb" id="orb"></div>
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow"><span class="dot"></span> L'immobilier, autrement</div>
+      <h1>Le lieu où votre <span class="gradient">prochaine histoire</span> commence.</h1>
+      <p class="hero-copy">Nous dénichons des lieux qui ont quelque chose en plus. Des appartements lumineux, des maisons singulières et des adresses pensées pour votre quotidien.</p>
+      <div class="hero-actions"><a class="pill primary" href="#biens">Explorer nos biens&nbsp; →</a><a class="pill outline" href="#contact">Estimer mon bien</a></div>
+      <div class="hero-note"><div class="avatars"><span class="avatar"></span><span class="avatar"></span><span class="avatar"></span></div> +1 200 projets accompagnés avec soin</div>
+    </div>
+    <div class="property-stage reveal">
+      <div class="floating-tag tag1">✦ Coup de cœur</div>
+      <div class="floating-tag tag2">✓ Visite virtuelle disponible</div>
+      <article class="property-card">
+        <div class="property-image">
+          <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=85" alt="Maison contemporaine lumineuse">
+          <button class="like" aria-label="Ajouter aux favoris">♡</button>
+          <span class="price">890 000 €</span>
+        </div>
+        <div class="property-info">
+          <div><h3>Villa Horizon</h3><p>Montpellier · 5 pièces · 172 m²</p></div>
+          <div class="property-meta"><span class="meta">Piscine</span><span class="meta">Jardin</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="trust">
+  <div class="container">
+    <p>Une expertise locale, des projets qui durent.</p>
+    <div class="trust-row"><span>MAISON&amp;CO</span><span>habitat.</span><span>atelier 17</span><span>URBANIA</span><span>LE COLLECTIF</span><span>nova</span></div>
+  </div>
+</section>
+
+<section class="listings" id="biens">
+  <div class="container">
+    <div class="section-head reveal"><div><div class="kicker">Sélection Éléa</div><h2>Des adresses<br>qui donnent envie.</h2></div><p>Une sélection volontairement courte. Nous préférons vous montrer moins de biens, mais de vrais coups de cœur.</p></div>
+    <div class="cards">
+      <article class="card reveal delay1"><div class="card-img"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=85" alt="Maison moderne"><span class="badge">NOUVEAU</span></div><div class="card-content"><h3>Maison Alba</h3><div class="location">Castelnau-le-Lez · 168 m²</div><div class="card-bottom"><span class="card-price">745 000 €</span><span class="card-link">Découvrir →</span></div></div></article>
+      <article class="card reveal delay2"><div class="card-img"><img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=85" alt="Intérieur contemporain"><span class="badge">COUP DE CŒUR</span></div><div class="card-content"><h3>Appartement Sève</h3><div class="location">Montpellier · 92 m²</div><div class="card-bottom"><span class="card-price">419 000 €</span><span class="card-link">Découvrir →</span></div></div></article>
+      <article class="card reveal delay3"><div class="card-img"><img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=900&q=85" alt="Salon élégant"><span class="badge">EXCLUSIVITÉ</span></div><div class="card-content"><h3>Maison Albaïa</h3><div class="location">Saint-Gély-du-Fesc · 204 m²</div><div class="card-bottom"><span class="card-price">1 090 000 €</span><span class="card-link">Découvrir →</span></div></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="story" id="agence">
+  <div class="container story-grid">
+    <div class="story-visual reveal">
+      <div class="photo-main"><img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1000&q=85" alt="Intérieur lumineux"></div>
+      <div class="mini-card"><strong>94%</strong><span>de nos clients nous recommandent à leurs proches.</span></div>
+    </div>
+    <div class="story-copy reveal">
+      <div class="kicker">L'agence</div><h2>Plus qu'une transaction. Une vraie rencontre.</h2>
+      <p>ÉLÉA est née d'une idée simple : rendre l'immobilier plus humain, plus clair et beaucoup plus agréable. Notre rôle est de comprendre ce que vous cherchez avant de vous montrer ce que nous avons.</p>
+      <div class="checks"><div class="check"><i>✓</i><span>Une sélection exigeante, pensée pour vous</span></div><div class="check"><i>✓</i><span>Un accompagnement de la première visite aux clés</span></div><div class="check"><i>✓</i><span>Une mise en valeur créative de chaque propriété</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="container">
+    <div class="section-head reveal"><div><div class="kicker">Notre savoir-faire</div><h2>Tout ce qu'il faut.<br>Rien de superflu.</h2></div><p>Un accompagnement complet, avec la précision d'un expert et la simplicité d'un partenaire.</p></div>
+    <div class="service-grid">
+      <article class="service reveal delay1"><div class="icon">⌂</div><div><h3>Acheter</h3><p>Nous trouvons les biens qui correspondent vraiment à votre projet.</p></div></article>
+      <article class="service reveal delay2"><div class="icon">↗</div><div><h3>Vendre</h3><p>Positionnement, storytelling, photos et stratégie de diffusion.</p></div></article>
+      <article class="service reveal delay3"><div class="icon">◌</div><div><h3>Investir</h3><p>Nous vous aidons à repérer les opportunités qui ont du sens.</p></div></article>
+      <article class="service reveal"><div class="icon">✦</div><div><h3>Valoriser</h3><p>Un regard créatif pour révéler tout le potentiel de votre bien.</p></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="process" id="process">
+  <div class="container">
+    <div class="section-head reveal"><div><div class="kicker">Notre méthode</div><h2>Simple à vivre.<br>Précise à chaque étape.</h2></div><p>Pas de jargon, pas de parcours compliqué. Vous savez toujours où vous en êtes.</p></div>
+    <div class="steps">
+      <article class="step reveal delay1"><span class="step-num">01 / ÉCOUTER</span><h3>Votre projet</h3><p>Vos envies, vos contraintes, votre rythme. Tout commence ici.</p></article>
+      <article class="step reveal delay2"><span class="step-num">02 / CHERCHER</span><h3>La bonne adresse</h3><p>Nous activons notre réseau et notre connaissance du terrain.</p></article>
+      <article class="step reveal delay3"><span class="step-num">03 / DÉCIDER</span><h3>En confiance</h3><p>Chaque information est claire pour vous permettre de choisir sereinement.</p></article>
+      <article class="step reveal"><span class="step-num">04 / CÉLÉBRER</span><h3>Les clés</h3><p>Le moment que l'on préfère. Celui où un projet devient votre quotidien.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="contact">
+  <div class="container">
+    <div class="cta-box reveal">
+      <div class="kicker">Votre prochaine étape</div>
+      <h2>Et si on parlait<br><span class="gradient">de votre projet ?</span></h2>
+      <p>Une question, une estimation, une recherche précise ou simplement l'envie d'échanger ? Notre équipe vous répond avec plaisir.</p>
+      <a href="mailto:bonjour@elea-immobilier.fr" class="pill primary">Prendre rendez-vous&nbsp; ↗</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container footer">
+    <p>© 2026 ÉLÉA Immobilier — Montpellier &amp; alentours</p>
+    <div class="footer-links"><a href="#">Instagram</a><a href="#">Mentions légales</a><a href="#">Confidentialité</a></div>
+  </div>
+</footer>
+
+<script>
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)} });
+},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+reveals.forEach(el=>io.observe(el));
+
+const orb=document.getElementById('orb');
+window.addEventListener('pointermove',e=>{
+  orb.style.left=e.clientX+'px'; orb.style.top=e.clientY+'px';
+});
+document.querySelectorAll('.card,.service,.step,.property-card').forEach(card=>{
+  card.addEventListener('pointermove',e=>{
+    const r=card.getBoundingClientRect(), x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+    if(innerWidth>900) card.style.transform=`perspective(900px) rotateX(${y*-3}deg) rotateY(${x*3}deg) translateY(-8px)`;
+  });
+  card.addEventListener('pointerleave',()=>card.style.transform='');
+});
+
+let last=0;
+window.addEventListener('scroll',()=>{
+  const y=window.scrollY;
+  if(Math.abs(y-last)>4){
+    document.querySelector('.blob.one').style.transform=`translateY(${y*.06}px)`;
+    document.querySelector('.blob.two').style.transform=`translateY(${-y*.04}px)`;
+    last=y;
+  }
+},{passive:true});
+</script>
+</body>
+</html>
